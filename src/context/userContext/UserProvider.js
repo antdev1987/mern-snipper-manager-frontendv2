@@ -17,8 +17,6 @@ export const UserProvider = props =>{
     }
    },[])
 
-   console.log(state.user)
-
     //function to userdata to the user state
     const setUser = (user)=>{
         dispatch({type:'LOGIN - USER',payload:user})

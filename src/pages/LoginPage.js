@@ -26,7 +26,7 @@ const LoginPage = () => {
   const login = async(values)=>{
 
     try {
-      const url = 'http://localhost:4000/api/users/login'
+      const url = 'http://192.168.100.7:4000/api/users/login'
 
       const {data} = await axios.post(url,values)
       console.log(data)
