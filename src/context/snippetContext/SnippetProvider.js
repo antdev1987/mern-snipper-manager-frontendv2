@@ -44,7 +44,7 @@ export const SnippetProvider = props =>{
     const getAllSnippetProjects = async()=>{
         try {
             
-            const url = `${env.process.REACT_APP_API_URL}/api/snippetsProjects`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects`
             const config = {
                 headers:{
                     Authorization: `Bearer ${user.token}`
@@ -65,7 +65,7 @@ export const SnippetProvider = props =>{
         
         setIsReady(true)
         try {
-            const url = `${env.process.REACT_APP_API_URL}/api/snippetsProjects/${id}`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects/${id}`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -85,7 +85,7 @@ export const SnippetProvider = props =>{
     //create a new project function
     const newSnippetProjectfn = async(inputs)=>{
         try {
-            const url = `${env.process.REACT_APP_API_URL}/api/snippetsProjects`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -108,7 +108,7 @@ export const SnippetProvider = props =>{
     //create a new snippet function
     const newSnippetfn = async(snippetProjectId)=>{
         try {
-            const url = `${env.process.REACT_APP_API_URL}/api/snippets`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippets`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -125,7 +125,7 @@ export const SnippetProvider = props =>{
     //delete a new snippet function
     const deleteSnippetfn =async(id)=>{
         try {
-            const url =`${env.process.REACT_APP_API_URL}/api/snippets/${id}`
+            const url =`${process.env.REACT_APP_API_URL}/api/snippets/${id}`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -143,7 +143,7 @@ export const SnippetProvider = props =>{
     //geting one snippet by id function
     const getSnippetfn = async(id)=>{
         try {
-            const url = `${env.process.REACT_APP_API_URL}/api/snippets/${id}`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippets/${id}`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -163,7 +163,7 @@ export const SnippetProvider = props =>{
     const updateSaveSnippetfn = async(inputs)=>{
        
         try {
-            const url =`${env.process.REACT_APP_API_URL}/api/snippets/${inputs._id}`
+            const url =`${process.env.REACT_APP_API_URL}/api/snippets/${inputs._id}`
             console.log(url)
             const config = {
                 headers:{

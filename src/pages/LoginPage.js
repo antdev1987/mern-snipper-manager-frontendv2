@@ -26,7 +26,7 @@ const LoginPage = () => {
   const login = async(values)=>{
 
     try {
-      const url = `${env.process.REACT_APP_API_URL}/api/users/login`
+      const url = `${process.env.REACT_APP_API_URL}/api/users/login`
 
       const {data} = await axios.post(url,values)
       console.log(data)
