@@ -8,16 +8,15 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "react-pro-sidebar";
-import { FaGem, FaList, FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { RiArchiveDrawerFill, RiFolderAddFill } from "react-icons/ri";
-import { GrAddCircle } from "react-icons/gr";
 import ProjectForm from "./ProjectForm";
 import { useSnippet } from "../context/snippetContext/SnippetProvider";
 import { useUser } from "../context/userContext/UserProvider";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Aside() {
-  const { projects, setSnippet, newSnippetfn } = useSnippet();
+  const { projects } = useSnippet();
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
   const navigate = useNavigate();

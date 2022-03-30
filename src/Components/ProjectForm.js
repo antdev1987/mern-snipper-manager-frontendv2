@@ -3,7 +3,6 @@ import React from 'react'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import { Link } from 'react-router-dom';
 import { useSnippet } from '../context/snippetContext/SnippetProvider';
 
 

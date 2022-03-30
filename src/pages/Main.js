@@ -17,6 +17,7 @@ export default function Main() {
   //the dependenci projects run when you add or delete a snippet so the componnet is updated with current data
   useEffect(() => {
     getSnippetProjectByIdfn(id);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, projects]);
 
  

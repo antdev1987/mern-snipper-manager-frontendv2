@@ -1,8 +1,7 @@
 import { createContext,useContext,useEffect,useReducer } from "react";
 
 import { initialState, userReducer } from './userReducer'
-import axios from 'axios'
-import Swal from 'sweetalert2'
+
 
 export const UserContext = createContext()
 export const UserProvider = props =>{

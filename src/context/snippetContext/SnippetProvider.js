@@ -36,6 +36,7 @@ export const SnippetProvider = props =>{
             getAllSnippetProjects()
         }
 
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     },[user.token])
 
 
@@ -90,7 +91,7 @@ export const SnippetProvider = props =>{
                     Authorization:`Bearer ${user.token}`
                 }
             }
-            const {data} = await axios.post(url,inputs,config)
+            await axios.post(url,inputs,config)
             Swal.fire({
                 icon: 'success',
                 title: 'New Snippet Folder created',
@@ -131,7 +132,7 @@ export const SnippetProvider = props =>{
                 }
             }
 
-            const {data} = await axios.delete(url,config)
+            await axios.delete(url,config)
             getAllSnippetProjects()
         } catch (error) {
             console.log(error.response)
