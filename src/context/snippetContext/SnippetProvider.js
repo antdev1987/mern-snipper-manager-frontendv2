@@ -1,9 +1,10 @@
 import axios from "axios";
-import { createContext,useContext,useEffect,useReducer } from "react";
+import { createContext,useContext,useEffect,useReducer,useState } from "react";
 import { useUser } from "../userContext/UserProvider";
 import { InitialState, SnippetReducer } from "./SnippetReducer";
 
 import Swal from "sweetalert2";
+
 
 
 export const SnippetContext = createContext()
@@ -11,6 +12,7 @@ export const SnippetProvider = props =>{
 
     const {user} = useUser()
     const [state, dispatch] = useReducer(SnippetReducer, InitialState)
+    const [isReady,setIsReady]= useState(false)
 
 
     //saving project fetched from server in a local state
@@ -18,10 +20,9 @@ export const SnippetProvider = props =>{
         dispatch({type:'ADD - PROJECT', payload:inputs})
     }
 
-    const setSnippet = (id)=>{
-        // const init = {idProject:id, snippet:{name:'unkonw',snippet:'text here'}}
-        // dispatch({type:'ADD - SNIPPET', payload:init})
-        console.log(id)
+    const setSnippet = (snippet)=>{
+        dispatch({type:'ADD - SNIPPET', payload:snippet})
+        
     }
 
     const setOneProject = (data)=>{
@@ -42,7 +43,7 @@ export const SnippetProvider = props =>{
     const getAllSnippetProjects = async()=>{
         try {
             
-            const url = 'http://192.168.100.7:4000/api/snippetsProjects'
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects`
             const config = {
                 headers:{
                     Authorization: `Bearer ${user.token}`
@@ -50,7 +51,6 @@ export const SnippetProvider = props =>{
             }
 
             const {data} = await axios(url,config)
-            console.log(data)
             setProject(data)
         } catch (error) {
             console.log(error)
@@ -59,33 +59,32 @@ export const SnippetProvider = props =>{
     }
 
 
-    //get snippet by id
-
+    //get snippet project by ids
     const getSnippetProjectByIdfn = async(id)=>{
         
-        
+        setIsReady(true)
         try {
-
-
-            const url = `http://192.168.100.7:4000/api/snippetsProjects/${id}`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects/${id}`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
                 }
             }
-
             const {data} = await axios(url,config)
             setOneProject(data)
         } catch (error) {
             console.log(error)
             console.log(error.response)
         }
+
+       
+        setIsReady(false)
     }
 
     //create a new project function
     const newSnippetProjectfn = async(inputs)=>{
         try {
-            const url = 'http://192.168.100.7:4000/api/snippetsProjects'
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
@@ -104,16 +103,97 @@ export const SnippetProvider = props =>{
         }
     }
 
+
+    //create a new snippet function
+    const newSnippetfn = async(snippetProjectId)=>{
+        try {
+            const url = `${process.env.REACT_APP_API_URL}/api/snippets`
+            const config = {
+                headers:{
+                    Authorization:`Bearer ${user.token}`
+                }
+            }
+            await axios.post(url,{snippetProjectId},config)
+            getAllSnippetProjects()
+        
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+    //delete a new snippet function
+    const deleteSnippetfn =async(id)=>{
+        try {
+            const url =`${process.env.REACT_APP_API_URL}/api/snippets/${id}`
+            const config = {
+                headers:{
+                    Authorization:`Bearer ${user.token}`
+                }
+            }
+
+            const {data} = await axios.delete(url,config)
+            getAllSnippetProjects()
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+
+    //geting one snippet by id function
+    const getSnippetfn = async(id)=>{
+        try {
+            const url = `${process.env.REACT_APP_API_URL}/api/snippets/${id}`
+            const config = {
+                headers:{
+                    Authorization:`Bearer ${user.token}`
+                }
+            }
+
+            const {data} = await axios(url,config)
+            setSnippet(data)
+            
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+
+    //updating and saving snippet by id function
+    const updateSaveSnippetfn = async(inputs)=>{
+       
+        try {
+            const url =`${process.env.REACT_APP_API_URL}/api/snippets/${inputs._id}`
+            console.log(url)
+            const config = {
+                headers:{
+                    Authorization:`Bearer ${user.token}`
+                }
+            }
+
+            const {data} = await axios.put(url,inputs,config)
+            setSnippet(data)
+        } catch (error) {
+            console.log(error.response)
+        }
+
+    }
+
     return(
         <SnippetContext.Provider
             value={{
                 projects:state.projects,
                 project:state.project,
+                snippet:state.snippet,
+                isReady,
 
                 setProject,
                 setSnippet,
                 newSnippetProjectfn,
-                getSnippetProjectByIdfn
+                getSnippetProjectByIdfn,
+                newSnippetfn,
+                deleteSnippetfn,
+                getSnippetfn,
+                updateSaveSnippetfn
             }}
         >
             {props.children}

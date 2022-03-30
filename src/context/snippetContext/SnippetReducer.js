@@ -1,7 +1,8 @@
 
 export const InitialState = {
     projects:[],
-    project:{}
+    project:{},
+    snippet:{}
 }
 
 export const SnippetReducer =(state,action)=>{
@@ -24,18 +25,7 @@ export const SnippetReducer =(state,action)=>{
         case 'ADD - SNIPPET':
             return{
                 ...state,
-                projects:state.projects.map(item =>{
-                    console.log(item)
-                    console.log(action.payload)
-                   if(item.id === action.payload.idProject){
-
-                    const newItem = {...item, snippets:[...item.snippets,{...action.payload.snippet}] }
-
-                       return newItem
-                   }
-
-                   return item
-                })
+                snippet:{...action.payload}
             }
     }
         

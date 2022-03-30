@@ -9,22 +9,23 @@ import {
   SidebarFooter,
 } from "react-pro-sidebar";
 import { FaGem, FaList, FaGithub } from "react-icons/fa";
-import { RiArchiveDrawerFill } from "react-icons/ri";
+import { RiArchiveDrawerFill, RiFolderAddFill } from "react-icons/ri";
+import { GrAddCircle } from "react-icons/gr";
 import ProjectForm from "./ProjectForm";
 import { useSnippet } from "../context/snippetContext/SnippetProvider";
 import { useUser } from "../context/userContext/UserProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function Aside() {
+  const { projects, setSnippet, newSnippetfn } = useSnippet();
   const [isOpen, setIsOpen] = useState(false);
-  const { projects, setSnippet } = useSnippet();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const showHideForm = () => {
     setIsOpen(!isOpen);
   };
 
-  const navigate = useNavigate();
   const handleClick = (id) => {
     navigate(`/snippet/${id}`);
   };
@@ -34,30 +35,38 @@ export default function Aside() {
       <SidebarHeader className="headerStyles">{user.name}</SidebarHeader>
       <SidebarContent>
         <Menu iconShape="circle">
-          <MenuItem onClick={showHideForm} icon={<FaList />}>
-            
-            New
+          <MenuItem
+            onClick={showHideForm}
+            icon={<RiFolderAddFill className="fs-4" />}
+          >
+            Create Directory
           </MenuItem>
           {isOpen && <ProjectForm />}
         </Menu>
-        <Menu 
-        iconShape="circle"
-        
-    
-        >
+
+        <Menu iconShape="circle">
+          <label className="d-block text-center text-white">Directories</label>
           {projects.map((item, i) => (
             <SubMenu
-            
               key={item._id}
               onClick={() => handleClick(item._id)}
               suffix={
-                <span className="badge text-dark bg-warning">{i + 1}</span>
+                <span className="badge text-dark bg-warning">
+                  {item.snippetsId.length}
+                </span>
               }
               title={item.projectName}
-              icon={<RiArchiveDrawerFill />}
+              icon={<RiArchiveDrawerFill className="fs-6" />}
             >
-              <button onClick={() => setSnippet(item._id)}>Add</button>
-              <MenuItem> test </MenuItem>
+              <div className="d-flex justify-content-between ">
+                {/* <button
+                  className="btn btn-light"
+                  onClick={() => newSnippetfn(item._id)}
+                >
+                  Add
+                </button> */}
+                <button className="btn w-100 me-3 btn-primary"> Back </button>
+              </div>
 
               {item.snippets?.map((item, i) => {
                 return <MenuItem> {item.name} </MenuItem>;

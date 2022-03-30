@@ -26,7 +26,7 @@ const LoginPage = () => {
   const login = async(values)=>{
 
     try {
-      const url = 'http://192.168.100.7:4000/api/users/login'
+      const url = `${process.env.REACT_APP_API_URL}/api/users/login`
 
       const {data} = await axios.post(url,values)
       console.log(data)
@@ -65,7 +65,6 @@ const LoginPage = () => {
         onSubmit={(values) => {
           // same shape as initial values
           login(values)
-          console.log(values);
         }}
       >
         {({ errors, touched }) => (

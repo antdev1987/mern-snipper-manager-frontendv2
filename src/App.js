@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 
 import SnippetPage from "./pages/SnippetPage";
 import Main from "./pages/Main";
+import SnippetSnip from "./pages/SnippetSnip";
 
 import PrivateRoute from "./pages/permissions/PrivateRoute";
 import PublicRoute from "./pages/permissions/PublicRoute";
@@ -33,10 +34,12 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
           </Route>
+          
 
           <Route element={<PrivateRoute />}>
             <Route path='/snippet' element={<SnippetPage />}>
               <Route path='/snippet/:id' element={<Main />}/>
+              <Route path='/snippet/snip/:id' element={<SnippetSnip />}/>
             </Route>
           </Route>
         </Routes>
