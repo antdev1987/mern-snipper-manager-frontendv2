@@ -28,7 +28,7 @@ const RegisterPage = () => {
  const register = async(inputs)=>{
 
   try {
-      const url = `${process.env.REACT_APP_API_URL}/api/users`
+      const url = `https://mern-snipper-manager-api.herokuapp.com/api/users`
       const {data} = await axios.post(url,inputs)
       console.log(data)
       Swal.fire({
