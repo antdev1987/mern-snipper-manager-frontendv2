@@ -25,6 +25,8 @@ export default function Aside() {
     setIsOpen(!isOpen);
   };
 
+  console.log(projects)
+
   const handleClick = (id) => {
     navigate(`/snippet/${id}`);
   };
@@ -58,12 +60,6 @@ export default function Aside() {
               icon={<RiArchiveDrawerFill className="fs-6" />}
             >
               <div className="d-flex justify-content-between ">
-                {/* <button
-                  className="btn btn-light"
-                  onClick={() => newSnippetfn(item._id)}
-                >
-                  Add
-                </button> */}
                 <button className="btn w-100 me-3 btn-primary"> Back </button>
               </div>
 
