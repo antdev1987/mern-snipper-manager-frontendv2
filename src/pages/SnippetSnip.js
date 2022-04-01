@@ -54,10 +54,9 @@ const SnippetSnip = () => {
     updateSaveSnippetfn(dataSaved);
   };
 
-  console.log(snippet)
 
   return (
-    <div className="w-100 bg-dark h-100 bg-light  ">
+    <div className="w-100 bg-dark min-vh-94 bg-light  ">
       <form className='w-100 px-4 ' onSubmit={handleSubmit}>
         <h2>{snippet.title}</h2>
 

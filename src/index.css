@@ -7,6 +7,12 @@
 } */
 
 
+/* utiliteis */
+
+.min-vh-94{
+  min-height: 94vh;
+}
+
 /* login css */
 .form-box{
   max-width: 35rem;
@@ -14,23 +20,30 @@
 }
 
 
+.text{
+  display: block;
+  width: 150px;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}
 
 
 /* sidebar css */
 .Snippet {
   font-family: sans-serif;
-  height: 100%;
-
   display: flex;
-  position: relative;
-  height: 94vh;
+  /* position: relative; */
+  
 }
 
 .Snippet .main {
   padding: 24px;
   flex-grow: 1;
-  
+  min-height: 94vh;
 }
+
+
 
 .sidebar-btn-wrapper {
   display: flex;

@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 const SnippetPage = () => {
   return (
   
-    <div className='Snippet border border-4 border-warning'>
+    <div className='Snippet min-vh-94 '>
       <Aside />
       
       <Outlet />

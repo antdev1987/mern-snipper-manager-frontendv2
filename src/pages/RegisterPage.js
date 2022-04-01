@@ -30,14 +30,12 @@ const RegisterPage = () => {
   try {
       const url = `${process.env.REACT_APP_API_URL}/api/users`
       const {data} = await axios.post(url,inputs)
-      console.log(data)
       Swal.fire({
           icon: 'success',
           title: data.msg,
           showConfirmButton: false,
           timer: 1500
       }).then((result)=>{
-        console.log(result)
         navigate('/login')
       })
 

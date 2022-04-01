@@ -52,10 +52,7 @@ export const SnippetProvider = props =>{
             }
 
             const {data} = await axios(url,config)
-
-            console.log(data)
-            
-
+    
             setProject(data)
         } catch (error) {
             console.log(error)
@@ -66,21 +63,16 @@ export const SnippetProvider = props =>{
 
     //get all snippet of an project by projectId and paginate 
     const getSnippetProjectByIdfn = async(id,pageNumber)=>{
-
-        console.log(pageNumber)
         
         setIsReady(true)
         try {
-            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects/${id}?page=${pageNumber}`
+            const url = `${process.env.REACT_APP_API_URL}/api/snippetsProjects/${id}?page=${pageNumber}'}`
             const config = {
                 headers:{
                     Authorization:`Bearer ${user.token}`
                 }
             }
             const {data} = await axios(url,config)
-
-
-            console.log(data)
 
             setOneProject({data:data.snippetProject,totalPages:data.totalPages})
         } catch (error) {

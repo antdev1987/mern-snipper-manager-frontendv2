@@ -25,14 +25,18 @@ export default function Aside() {
     setIsOpen(!isOpen);
   };
 
-  console.log(projects)
 
   const handleClick = (id) => {
     navigate(`/snippet/${id}`);
   };
 
+  // heres goes the jsx code
   return (
-    <ProSidebar className="">
+    <div>
+
+    <ProSidebar 
+    breakPoint="md"
+    className="pro-side ">
       <SidebarHeader className="headerStyles">{user.name}</SidebarHeader>
       <SidebarContent>
         <Menu iconShape="circle">
@@ -77,12 +81,13 @@ export default function Aside() {
             target="_blank"
             className="sidebar-btn"
             rel="noopener noreferrer"
-          >
+            >
             <FaGithub />
             <span>Github</span>
           </a>
         </div>
       </SidebarFooter>
     </ProSidebar>
+            </div>
   );
 }

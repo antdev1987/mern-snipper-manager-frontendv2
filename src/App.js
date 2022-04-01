@@ -15,6 +15,8 @@ import PublicRoute from "./pages/permissions/PublicRoute";
 
 import { UserProvider } from "./context/userContext/UserProvider";
 import { SnippetProvider } from "./context/snippetContext/SnippetProvider";
+import SnippetHomePage from "./pages/SnippetHomePage";
+import VerifyPage from "./pages/VerifyPage";
 
 function App() {
 
@@ -33,11 +35,13 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/authenticateAccount/:token" element={<VerifyPage />} />
           </Route>
           
 
           <Route element={<PrivateRoute />}>
             <Route path='/snippet' element={<SnippetPage />}>
+              <Route index element={<SnippetHomePage />}/>
               <Route path='/snippet/:id' element={<Main />}/>
               <Route path='/snippet/snip/:id' element={<SnippetSnip />}/>
             </Route>
