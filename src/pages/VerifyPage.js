@@ -25,6 +25,8 @@ const VerifyPage = () => {
     fetching();
   }, []);
 
+  console.log(token)
+
   return (
     <div className="container mt-5">
       <div className="card w-50 m-auto">
