@@ -36,6 +36,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/authenticateAccount/:token" element={<VerifyPage />} />
+            <Route path="*" element={<h1>page not found 404</h1>} />
           </Route>
           
 
