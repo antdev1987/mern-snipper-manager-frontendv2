@@ -23,9 +23,12 @@ const VerifyPage = () => {
     };
 
     fetching();
-  }, []);
+  }, [token]);
 
+  console.log(verification)
   console.log(token)
+
+  console.log('en verify page')
 
   return (
     <div className="container mt-5">

@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
 
     
-
+console.log('en register page')
 
   return (
     <div className="form-box border m-auto mt-5 shadow p-4">

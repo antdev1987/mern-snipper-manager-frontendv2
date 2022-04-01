@@ -50,6 +50,8 @@ const LoginPage = () => {
 
   }
 
+  console.log('in login page')
+
   return (
     <div className="form-box border m-auto mt-5 shadow p-4">
       <h1 className="mb-3">LogIn</h1>
