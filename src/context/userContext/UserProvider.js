@@ -23,7 +23,8 @@ export const UserProvider = props =>{
 
     //function to logged out user
     const exitUserfn = ()=>{
-        localStorage.removeItem('uid')
+        // localStorage.removeItem('uid')
+        localStorage.clear()
         dispatch({type:'EXIT - USER'})
     }
 

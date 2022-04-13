@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import Alerta from "../Components/Alerta";
 
+import { GoogleLogin } from "react-google-login";
+import GoogleButton from "react-google-button";
 import LoadingOverlay from "react-loading-overlay";
 LoadingOverlay.propTypes = undefined;
 
@@ -56,68 +58,125 @@ const LoginPage = () => {
     }
   };
 
+  const googleSuccess = async (response) => {
+    console.log(response);
+
+    const dataUser = {
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      password: response.profileObj.googleId,
+    };
+
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/api/users/loginGoogle`;
+
+      const { data } = await axios.post(url, dataUser);
+
+      console.log(data);
+
+      localStorage.setItem("uid", JSON.stringify(data.data));
+
+      setUser(data.data);
+
+      // Swal.fire({
+      //   icon: "success",
+      //   title: data.msg,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+
+      navigate("/snippet");
+    } catch (error) {
+      setIsActive(false);
+      console.log(error);
+      setAlerta(error.response.data.msg);
+    }
+  };
+
+  const googleFailure = (err) => {
+    console.log(err);
+  };
+
   return (
-    
-      <LoadingOverlay
-        className="w-100 p-5 min-vh-94"
-        active={isActive}
-        spinner
-        text="Loading your content..."
-      >
-        <div className="form-box border m-auto  shadow p-4">
-          <h1 className="mb-3">LogIn</h1>
+    <LoadingOverlay
+      className="w-100 p-5 min-vh-94"
+      active={isActive}
+      spinner
+      text="Loading your content..."
+    >
+      <div className="form-box border m-auto  shadow p-4">
+        <h1 className="mb-2">LogIn with</h1>
 
-          {alerta && <Alerta>{alerta}</Alerta>}
-
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={LoginSchema}
-            onSubmit={(values) => {
-              login(values);
-            }}
-          >
-            {({ errors, touched }) => (
-              <Form>
-                <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <Field name="email" className="form-control" />
-                  {errors.email && touched.email ? (
-                    <div className="text-center mt-2 bg-warning fw-bold p-1 rounded">
-                      {errors.email}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="mb-3">
-                  <label className="form-label">Password</label>
-                  <Field
-                    name="password"
-                    className="form-control"
-                    type="password"
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="text-center mt-2 bg-warning fw-bold p-1 rounded">
-                      {errors.password}
-                    </div>
-                  ) : null}
-                </div>
-
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </Form>
+        <div className="text-center">
+          <GoogleLogin
+            className="mb-3"
+            clientId="863654678830-ukb20f171nddd9h3cp5dth11ivvqpfd3.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <GoogleButton
+              className="m-auto mb-3"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                Sign in with Google
+              </GoogleButton>
             )}
-          </Formik>
-
-          <Link className="mt-4 d-block text-decoration-none" to="/register">
-            Register
-          </Link>
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            isSignedIn={false}
+            cookiePolicy={"single_host_origin"}
+          />
         </div>
-      </LoadingOverlay>
-    
+
+        <p className="text-center text-muted">Or Email</p>
+
+        {alerta && <Alerta>{alerta}</Alerta>}
+
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values) => {
+            login(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <div className="mb-3">
+                <label className="form-label">Email</label>
+                <Field name="email" className="form-control" />
+                {errors.email && touched.email ? (
+                  <div className="text-center mt-2 bg-warning fw-bold p-1 rounded">
+                    {errors.email}
+                  </div>
+                ) : null}
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Password</label>
+                <Field
+                  name="password"
+                  className="form-control"
+                  type="password"
+                />
+                {errors.password && touched.password ? (
+                  <div className="text-center mt-2 bg-warning fw-bold p-1 rounded">
+                    {errors.password}
+                  </div>
+                ) : null}
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
+
+        <Link className="mt-4 d-block text-decoration-none" to="/register">
+          Register
+        </Link>
+      </div>
+    </LoadingOverlay>
   );
 };
 
